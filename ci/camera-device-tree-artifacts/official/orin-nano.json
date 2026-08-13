@@ -190,135 +190,135 @@
       "type": "camera-overlay",
       "output": "tegra234-p3767-camera-p3768-imx219-A.dtbo",
       "source": "overlay/tegra234-p3767-camera-p3768-imx219-A.dts",
-      "makefile": "",
-      "makeVariable": null,
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
       "platforms": [
         "orin-nano"
       ],
       "camera": "nvidia-reference",
       "variant": "default",
       "lifecycle": "sourceOnly",
-      "reason": "Camera source is not declared by a Makefile."
+      "reason": "NVIDIA reference overlay is buildable but not part of the TechNexion supported package."
     },
     {
       "id": "source.tegra234-p3767-camera-p3768-imx219-c",
       "type": "camera-overlay",
       "output": "tegra234-p3767-camera-p3768-imx219-C.dtbo",
       "source": "overlay/tegra234-p3767-camera-p3768-imx219-C.dts",
-      "makefile": "",
-      "makeVariable": null,
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
       "platforms": [
         "orin-nano"
       ],
       "camera": "nvidia-reference",
       "variant": "default",
       "lifecycle": "sourceOnly",
-      "reason": "Camera source is not declared by a Makefile."
+      "reason": "NVIDIA reference overlay is buildable but not part of the TechNexion supported package."
     },
     {
       "id": "source.tegra234-p3767-camera-p3768-imx219-dual",
       "type": "camera-overlay",
       "output": "tegra234-p3767-camera-p3768-imx219-dual.dtbo",
       "source": "overlay/tegra234-p3767-camera-p3768-imx219-dual.dts",
-      "makefile": "",
-      "makeVariable": null,
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
       "platforms": [
         "orin-nano"
       ],
       "camera": "nvidia-reference",
       "variant": "default",
       "lifecycle": "sourceOnly",
-      "reason": "Camera source is not declared by a Makefile."
+      "reason": "NVIDIA reference overlay is buildable but not part of the TechNexion supported package."
     },
     {
       "id": "source.tegra234-p3767-camera-p3768-imx219-imx477",
       "type": "camera-overlay",
       "output": "tegra234-p3767-camera-p3768-imx219-imx477.dtbo",
       "source": "overlay/tegra234-p3767-camera-p3768-imx219-imx477.dts",
-      "makefile": "",
-      "makeVariable": null,
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
       "platforms": [
         "orin-nano"
       ],
       "camera": "nvidia-reference",
       "variant": "default",
       "lifecycle": "sourceOnly",
-      "reason": "Camera source is not declared by a Makefile."
+      "reason": "NVIDIA reference overlay is buildable but not part of the TechNexion supported package."
     },
     {
       "id": "source.tegra234-p3767-camera-p3768-imx477-a",
       "type": "camera-overlay",
       "output": "tegra234-p3767-camera-p3768-imx477-A.dtbo",
       "source": "overlay/tegra234-p3767-camera-p3768-imx477-A.dts",
-      "makefile": "",
-      "makeVariable": null,
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
       "platforms": [
         "orin-nano"
       ],
       "camera": "nvidia-reference",
       "variant": "default",
       "lifecycle": "sourceOnly",
-      "reason": "Camera source is not declared by a Makefile."
+      "reason": "NVIDIA reference overlay is buildable but not part of the TechNexion supported package."
     },
     {
       "id": "source.tegra234-p3767-camera-p3768-imx477-c",
       "type": "camera-overlay",
       "output": "tegra234-p3767-camera-p3768-imx477-C.dtbo",
       "source": "overlay/tegra234-p3767-camera-p3768-imx477-C.dts",
-      "makefile": "",
-      "makeVariable": null,
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
       "platforms": [
         "orin-nano"
       ],
       "camera": "nvidia-reference",
       "variant": "default",
       "lifecycle": "sourceOnly",
-      "reason": "Camera source is not declared by a Makefile."
+      "reason": "NVIDIA reference overlay is buildable but not part of the TechNexion supported package."
     },
     {
       "id": "source.tegra234-p3767-camera-p3768-imx477-dual",
       "type": "camera-overlay",
       "output": "tegra234-p3767-camera-p3768-imx477-dual.dtbo",
       "source": "overlay/tegra234-p3767-camera-p3768-imx477-dual.dts",
-      "makefile": "",
-      "makeVariable": null,
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
       "platforms": [
         "orin-nano"
       ],
       "camera": "nvidia-reference",
       "variant": "default",
       "lifecycle": "sourceOnly",
-      "reason": "Camera source is not declared by a Makefile."
+      "reason": "NVIDIA reference overlay is buildable but not part of the TechNexion supported package."
     },
     {
       "id": "source.tegra234-p3767-camera-p3768-imx477-dual-4lane",
       "type": "camera-overlay",
       "output": "tegra234-p3767-camera-p3768-imx477-dual-4lane.dtbo",
       "source": "overlay/tegra234-p3767-camera-p3768-imx477-dual-4lane.dts",
-      "makefile": "",
-      "makeVariable": null,
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
       "platforms": [
         "orin-nano"
       ],
       "camera": "nvidia-reference",
       "variant": "default",
       "lifecycle": "sourceOnly",
-      "reason": "Camera source is not declared by a Makefile."
+      "reason": "NVIDIA reference overlay is buildable but not part of the TechNexion supported package."
     },
     {
       "id": "source.tegra234-p3767-camera-p3768-imx477-imx219",
       "type": "camera-overlay",
       "output": "tegra234-p3767-camera-p3768-imx477-imx219.dtbo",
       "source": "overlay/tegra234-p3767-camera-p3768-imx477-imx219.dts",
-      "makefile": "",
-      "makeVariable": null,
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
       "platforms": [
         "orin-nano"
       ],
       "camera": "nvidia-reference",
       "variant": "default",
       "lifecycle": "sourceOnly",
-      "reason": "Camera source is not declared by a Makefile."
+      "reason": "NVIDIA reference overlay is buildable but not part of the TechNexion supported package."
     }
   ]
 }
