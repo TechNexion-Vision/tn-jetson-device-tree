@@ -38,6 +38,11 @@ dtbo-y += tegra264-p3971-0000+p3834-xxxx-audio-respeaker-4-mic-array.dtbo
 dtbo-y += tegra264-p3971-0000+p3834-xxxx-audio-respeaker-4-mic-lin-array.dtbo
 dtbo-y += tegra264-p3971-0000+p3834-xxxx-dynamic.dtbo
 dtbo-y += tegra264-p4071-0000+p3834-xxxx-dynamic.dtbo
+dtbo-y += tegra264-p4071-camera-dsboard-thrmax-vls-gm2-overlay.dtbo
+dtbo-y += tegra264-p4071-camera-dsboard-thrmax-vls-gm2-fsync-overlay.dtbo
+dtbo-y += tegra264-p4071-camera-dsboard-thrmax-vls-gm2-tunnel-overlay.dtbo
+dtbo-y += tegra264-p4071-camera-dsboard-thrmax-vls-gm2-tunnel-fsync-overlay.dtbo
+dtbo-y += tegra264-p4071-camera-dsboard-thrmax-vls-gm2-fsync-external-overlay.dtbo
 dtbo-y += tegra264-ufs-provision.dtbo
 
 ifneq ($(dtb-y),)

@@ -1,0 +1,1979 @@
+// SPDX-License-Identifier: GPL-2.0-only
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/clock/tegra264-clk.h>
+#include <dt-bindings/gpio/tegra264-gpio.h>
+
+#define JETSON_COMPATIBLE	\
+  "nvidia,p4071-0000+p3834-0008", \
+  "nvidia,p3971-0089+p3834-0008", \
+  "nvidia,p3971-0050+p3834-0005", \
+  "nvidia,p3971-0080+p3834-0008"
+
+/* camera control gpio definitions */
+#define CAM0_RST_L	    TEGRA264_MAIN_GPIO(V, 2)
+#define CAM0_PWDN	    TEGRA264_MAIN_GPIO(AL, 1)
+#define CAM1_RST_L      TEGRA264_MAIN_GPIO(Q, 3)
+#define CAM1_PWDN       TEGRA264_MAIN_GPIO(Q, 2)
+
+/* camera control parameter definitions */
+#define CAM_NUM					8
+
+#define CAM0_PORT 				0
+#define CAM0_LANES 				4
+#define CAM0_VC_ID 				0
+#define CAM0_LANES_STRING 		"4"
+#define CAM0_SINTERFACE			"serial_a"
+#define CAM0_LANE_POLARITY		"0"
+#define CAM0_PIXEL_CLK			"200000000"
+#define CAM0_SERDES_PIXEL_CLK	"625000000"
+#define CAM0_DES_PHY_ID			0
+
+#define CAM1_PORT 				0
+#define CAM1_LANES 				4
+#define CAM1_VC_ID 				1
+#define CAM1_LANES_STRING 		"4"
+#define CAM1_SINTERFACE			"serial_a"
+#define CAM1_LANE_POLARITY		"0"
+#define CAM1_PIXEL_CLK			"200000000"
+#define CAM1_SERDES_PIXEL_CLK	"625000000"
+#define CAM1_DES_PHY_ID			0
+
+#define CAM2_PORT 				2
+#define CAM2_LANES 				4
+#define CAM2_VC_ID 				0
+#define CAM2_LANES_STRING 		"4"
+#define CAM2_SINTERFACE			"serial_c"
+#define CAM2_LANE_POLARITY		"0"
+#define CAM2_PIXEL_CLK			"200000000"
+#define CAM2_SERDES_PIXEL_CLK	"625000000"
+#define CAM2_DES_PHY_ID			0
+
+#define CAM3_PORT 				2
+#define CAM3_LANES 				4
+#define CAM3_VC_ID 				1
+#define CAM3_LANES_STRING 		"4"
+#define CAM3_SINTERFACE			"serial_c"
+#define CAM3_LANE_POLARITY		"0"
+#define CAM3_PIXEL_CLK			"200000000"
+#define CAM3_SERDES_PIXEL_CLK	"625000000"
+#define CAM3_DES_PHY_ID			0
+
+#define CAM4_PORT 				4
+#define CAM4_LANES 				4
+#define CAM4_VC_ID 				0
+#define CAM4_LANES_STRING 		"4"
+#define CAM4_SINTERFACE			"serial_e"
+#define CAM4_LANE_POLARITY		"0"
+#define CAM4_PIXEL_CLK			"200000000"
+#define CAM4_SERDES_PIXEL_CLK	"625000000"
+#define CAM4_DES_PHY_ID			0
+
+#define CAM5_PORT 				4
+#define CAM5_LANES 				4
+#define CAM5_VC_ID 				1
+#define CAM5_LANES_STRING 		"4"
+#define CAM5_SINTERFACE			"serial_e"
+#define CAM5_LANE_POLARITY		"0"
+#define CAM5_PIXEL_CLK			"200000000"
+#define CAM5_SERDES_PIXEL_CLK	"625000000"
+#define CAM5_DES_PHY_ID			0
+
+#define CAM6_PORT 				6
+#define CAM6_LANES 				4
+#define CAM6_VC_ID 				0
+#define CAM6_LANES_STRING 		"4"
+#define CAM6_SINTERFACE			"serial_g"
+#define CAM6_LANE_POLARITY		"0"
+#define CAM6_PIXEL_CLK			"200000000"
+#define CAM6_SERDES_PIXEL_CLK	"625000000"
+#define CAM6_DES_PHY_ID			0
+
+#define CAM7_PORT 				6
+#define CAM7_LANES 				4
+#define CAM7_VC_ID 				1
+#define CAM7_LANES_STRING 		"4"
+#define CAM7_SINTERFACE			"serial_g"
+#define CAM7_LANE_POLARITY		"0"
+#define CAM7_PIXEL_CLK			"200000000"
+#define CAM7_SERDES_PIXEL_CLK	"625000000"
+#define CAM7_DES_PHY_ID			0
+
+#define DES_LINK_FREQ			1250000000
+#define TEVS_LINK_FREQ			400000000
+
+#define TEVS_MODE_COMMON(LANES, SINTERFACE, LANE_POLARITY, PIXEL_CLK, SERDES_PIXEL_CLK)	\
+	mclk_khz = "24000";							\
+	num_lanes = LANES;							\
+	tegra_sinterface = SINTERFACE;				\
+	lane_polarity = LANE_POLARITY;				\
+	phy_mode = "DPHY";							\
+	discontinuous_clk = "no";					\
+	dpcm_enable = "false";						\
+	cil_settletime = "0";						\
+	mode_type = "yuv";							\
+	pixel_phase = "uyvy";						\
+	csi_pixel_bit_depth = "16";					\
+	readout_orientation = "90";					\
+	line_length = "3448";						\
+	inherent_gain = "1";						\
+	mclk_multiplier = "9.33";					\
+	pix_clk_hz = PIXEL_CLK;						\
+	serdes_pix_clk_hz = SERDES_PIXEL_CLK;		\
+	gain_factor = "16";							\
+	framerate_factor = "1000000";				\
+	exposure_factor = "1000000";				\
+	min_gain_val = "16";						\
+	max_gain_val = "170";						\
+	step_gain_val = "1";						\
+	default_gain = "16";						\
+	min_hdr_ratio = "1";						\
+	max_hdr_ratio = "1";						\
+	min_framerate = "2000000";					\
+	step_framerate = "1";						\
+	min_exp_time = "13";						\
+	max_exp_time = "683709";					\
+	step_exp_time = "1";						\
+	default_exp_time = "2495";					\
+	embedded_metadata_height = "0";
+
+#define TEVS_MODES(LANES, SINTERFACE, LANE_POLARITY, PIXEL_CLK, SERDES_PIXEL_CLK)	\
+	mode0 {										\
+		TEVS_MODE_COMMON(LANES, SINTERFACE, LANE_POLARITY, PIXEL_CLK, SERDES_PIXEL_CLK)	\
+		active_w = "3280";						\
+		active_h = "2464";						\
+		max_framerate = "21000000";				\
+		default_framerate = "21000000";			\
+	};											\
+	mode1 {										\
+		TEVS_MODE_COMMON(LANES, SINTERFACE, LANE_POLARITY, PIXEL_CLK, SERDES_PIXEL_CLK)	\
+		active_w = "3280";						\
+		active_h = "1848";						\
+		max_framerate = "28000000";				\
+		default_framerate = "28000000";			\
+	};											\
+	mode2 {										\
+		TEVS_MODE_COMMON(LANES, SINTERFACE, LANE_POLARITY, PIXEL_CLK, SERDES_PIXEL_CLK)	\
+		active_w = "1920";						\
+		active_h = "1080";						\
+		max_framerate = "30000000";				\
+		default_framerate = "30000000";			\
+	};											\
+	mode3 {										\
+		TEVS_MODE_COMMON(LANES, SINTERFACE, LANE_POLARITY, PIXEL_CLK, SERDES_PIXEL_CLK)	\
+		active_w = "1640";						\
+		active_h = "1232";						\
+		max_framerate = "30000000";				\
+		default_framerate = "30000000";			\
+	};											\
+	mode4 {										\
+		TEVS_MODE_COMMON(LANES, SINTERFACE, LANE_POLARITY, PIXEL_CLK, SERDES_PIXEL_CLK)	\
+		active_w = "1280";						\
+		active_h = "720";						\
+		max_framerate = "60000000";				\
+		default_framerate = "60000000";			\
+	};											\
+	mode5 {										\
+		TEVS_MODE_COMMON(LANES, SINTERFACE, LANE_POLARITY, PIXEL_CLK, SERDES_PIXEL_CLK)	\
+		active_w = "640";						\
+		active_h = "480";						\
+		max_framerate = "60000000";				\
+		default_framerate = "60000000";			\
+	};
+
+/ {
+	overlay-name = "TechNexion VLS-GM2 Camera with FSYNC Pixel Mode";
+	jetson-header-name = "Jetson AGX CSI Connector";
+	compatible = JETSON_COMPATIBLE;
+
+	fragment-camera@0 {
+		target-path = "/";
+		__overlay__ {
+			tegra-capture-vi  {
+				num-channels = <CAM_NUM>;
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					port@0 {
+						status = "okay";
+						reg = <0>;
+						vi_in0: endpoint {
+							status = "okay";
+							vc-id = <CAM0_VC_ID>;
+							port-index = <CAM0_PORT>;
+							bus-width = <CAM0_LANES>;
+							remote-endpoint = <&csi_0_out>;
+						};
+					};
+					port@1 {
+						status = "okay";
+						reg = <1>;
+						vi_in1: endpoint {
+							status = "okay";
+							vc-id = <CAM1_VC_ID>;
+							port-index = <CAM1_PORT>;
+							bus-width = <CAM1_LANES>;
+							remote-endpoint = <&csi_1_out>;
+						};
+					};
+					port@2 {
+						status = "okay";
+						reg = <2>;
+						vi_in2: endpoint {
+							status = "okay";
+							vc-id = <CAM2_VC_ID>;
+							port-index = <CAM2_PORT>;
+							bus-width = <CAM2_LANES>;
+							remote-endpoint = <&csi_2_out>;
+						};
+					};
+					port@3 {
+						status = "okay";
+						reg = <3>;
+						vi_in3: endpoint {
+							status = "okay";
+							vc-id = <CAM3_VC_ID>;
+							port-index = <CAM3_PORT>;
+							bus-width = <CAM3_LANES>;
+							remote-endpoint = <&csi_3_out>;
+						};
+					};
+					port@4 {
+						status = "okay";
+						reg = <4>;
+						vi_in4: endpoint {
+							status = "okay";
+							vc-id = <CAM4_VC_ID>;
+							port-index = <CAM4_PORT>;
+							bus-width = <CAM4_LANES>;
+							remote-endpoint = <&csi_4_out>;
+						};
+					};
+					port@5 {
+						status = "okay";
+						reg = <5>;
+						vi_in5: endpoint {
+							status = "okay";
+							vc-id = <CAM5_VC_ID>;
+							port-index = <CAM5_PORT>;
+							bus-width = <CAM5_LANES>;
+							remote-endpoint = <&csi_5_out>;
+						};
+					};
+					port@6 {
+						status = "okay";
+						reg = <6>;
+						vi_in6: endpoint {
+							status = "okay";
+							vc-id = <CAM6_VC_ID>;
+							port-index = <5>;
+							bus-width = <CAM6_LANES>;
+							remote-endpoint = <&csi_6_out>;
+						};
+					};
+					port@7 {
+						status = "okay";
+						reg = <7>;
+						vi_in7: endpoint {
+							status = "okay";
+							vc-id = <CAM7_VC_ID>;
+							port-index = <5>;
+							bus-width = <CAM7_LANES>;
+							remote-endpoint = <&csi_7_out>;
+						};
+					};
+				};
+			};
+
+			tegra-camera-platform {
+				compatible = "nvidia, tegra-camera-platform";
+
+				/**
+				 * The general guideline for naming badge_info contains 3 parts, and is as follows,
+				 * The first part is the camera_board_id for the module; if the module is in a FFD
+				 * platform, then use the platform name for this part.
+				 * The second part contains the position of the module, ex. "rear" or "front".
+				 * The third part contains the last 6 characters of a part number which is found
+				 * in the module's specsheet from the vender.
+				 */
+				modules {
+					status = "okay";
+					module0 {
+						status = "okay";
+						badge = "tevs_rear";
+						position = "rear";
+						orientation = "1";
+						drivernode0 {
+							status = "okay";
+							pcl_id = "v4l2_sensor";
+							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@810c640000/tca9548@72/i2c@0/rpi22_tevs_a@3d";
+						};
+					};
+					module1 {
+						status = "okay";
+						badge = "tevs_front";
+						position = "front";
+						orientation = "1";
+						drivernode0 {
+							status = "okay";
+							pcl_id = "v4l2_sensor";
+							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@810c640000/tca9548@72/i2c@0/rpi22_tevs_b@3e";
+						};
+					};
+					module2 {
+						status = "okay";
+						badge = "tevs_left";
+						position = "left";
+						orientation = "1";
+						drivernode0 {
+							status = "okay";
+							pcl_id = "v4l2_sensor";
+							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@810c640000/tca9548@72/i2c@1/rpi22_tevs_c@3d";
+						};
+					};
+					module3 {
+						status = "okay";
+						badge = "tevs_right";
+						position = "right";
+						orientation = "1";
+						drivernode0 {
+							status = "okay";
+							pcl_id = "v4l2_sensor";
+							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@810c640000/tca9548@72/i2c@1/rpi22_tevs_d@3e";
+						};
+					};
+					module4 {
+						status = "okay";
+						badge = "tevs_rear4";
+						position = "rear4";
+						orientation = "1";
+						drivernode0 {
+							status = "okay";
+							pcl_id = "v4l2_sensor";
+							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@810c640000/tca9548@72/i2c@2/rpi22_tevs_e@3d";
+						};
+					};
+					module5 {
+						status = "okay";
+						badge = "tevs_front4";
+						position = "front4";
+						orientation = "1";
+						drivernode0 {
+							status = "okay";
+							pcl_id = "v4l2_sensor";
+							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@810c640000/tca9548@72/i2c@2/rpi22_tevs_f@3e";
+						};
+					};
+					module6 {
+						status = "okay";
+						badge = "tevs_left4";
+						position = "left4";
+						orientation = "1";
+						drivernode0 {
+							status = "okay";
+							pcl_id = "v4l2_sensor";
+							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@810c640000/tca9548@72/i2c@3/rpi22_tevs_g@3d";
+						};
+					};
+					module7 {
+						status = "okay";
+						badge = "tevs_right4";
+						position = "right4";
+						orientation = "1";
+						drivernode0 {
+							status = "okay";
+							pcl_id = "v4l2_sensor";
+							sysfs-device-tree = "/sys/firmware/devicetree/base/bus@0/i2c@810c640000/tca9548@72/i2c@3/rpi22_tevs_h@3e";
+						};
+					};
+				};
+			};
+
+			bus@0 {
+				host1x@8181200000 {
+					nvcsi@8188000000 {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						num-channels = <CAM_NUM>;
+						channel@0 {
+							status = "okay";
+							reg = <0>;
+							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
+								status = "okay";
+								port@0 {
+									status = "okay";
+									reg = <0>;
+									csi_0_in: endpoint@0 {
+										status = "okay";
+										port-index = <CAM0_PORT>;
+										bus-width = <CAM0_LANES>;
+										remote-endpoint = <&rpi22_tevs_0_out>;
+									};
+								};
+								port@1 {
+									status = "okay";
+									reg = <1>;
+									csi_0_out: endpoint@1 {
+										status = "okay";
+										remote-endpoint = <&vi_in0>;
+									};
+								};
+							};
+						};
+						channel@1 {
+							status = "okay";
+							reg = <1>;
+							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
+								status = "okay";
+								port@0 {
+									status = "okay";
+									reg = <0>;
+									csi_1_in: endpoint@2 {
+										status = "okay";
+										port-index = <CAM1_PORT>;
+										bus-width = <CAM1_LANES>;
+										remote-endpoint = <&rpi22_tevs_1_out>;
+									};
+								};
+								port@1 {
+									status = "okay";
+									reg = <1>;
+									csi_1_out: endpoint@3 {
+										status = "okay";
+										remote-endpoint = <&vi_in1>;
+									};
+								};
+							};
+						};
+						channel@2 {
+							status = "okay";
+							reg = <2>;
+							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
+								status = "okay";
+								port@0 {
+									status = "okay";
+									reg = <0>;
+									csi_2_in: endpoint@4 {
+										status = "okay";
+										port-index = <CAM2_PORT>;
+										bus-width = <CAM2_LANES>;
+										remote-endpoint = <&rpi22_tevs_2_out>;
+									};
+								};
+								port@1 {
+									status = "okay";
+									reg = <1>;
+									csi_2_out: endpoint@5 {
+										status = "okay";
+										remote-endpoint = <&vi_in2>;
+									};
+								};
+							};
+						};
+						channel@3 {
+							status = "okay";
+							reg = <3>;
+							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
+								status = "okay";
+								port@0 {
+									status = "okay";
+									reg = <0>;
+									csi_3_in: endpoint@6 {
+										status = "okay";
+										port-index = <CAM3_PORT>;
+										bus-width = <CAM3_LANES>;
+										remote-endpoint = <&rpi22_tevs_3_out>;
+									};
+								};
+								port@1 {
+									status = "okay";
+									reg = <1>;
+									csi_3_out: endpoint@7 {
+										status = "okay";
+										remote-endpoint = <&vi_in3>;
+									};
+								};
+							};
+						};
+						channel@4 {
+							status = "okay";
+							reg = <4>;
+							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
+								status = "okay";
+								port@0 {
+									status = "okay";
+									reg = <0>;
+									csi_4_in: endpoint@8 {
+										status = "okay";
+										port-index = <CAM4_PORT>;
+										bus-width = <CAM4_LANES>;
+										remote-endpoint = <&rpi22_tevs_4_out>;
+									};
+								};
+								port@1 {
+									status = "okay";
+									reg = <1>;
+									csi_4_out: endpoint@9 {
+										status = "okay";
+										remote-endpoint = <&vi_in4>;
+									};
+								};
+							};
+						};
+						channel@5 {
+							status = "okay";
+							reg = <5>;
+							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
+								status = "okay";
+								port@0 {
+									status = "okay";
+									reg = <0>;
+									csi_5_in: endpoint@10 {
+									status = "okay";
+										port-index = <CAM5_PORT>;
+										bus-width = <CAM5_LANES>;
+										remote-endpoint = <&rpi22_tevs_5_out>;
+									};
+								};
+								port@1 {
+									status = "okay";
+									reg = <1>;
+									csi_5_out: endpoint@11 {
+										status = "okay";
+										remote-endpoint = <&vi_in5>;
+									};
+								};
+							};
+						};
+						channel@6 {
+							status = "okay";
+							reg = <6>;
+							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
+								status = "okay";
+								port@0 {
+									status = "okay";
+									reg = <0>;
+									csi_6_in: endpoint@12 {
+										status = "okay";
+										port-index = <CAM6_PORT>;
+										bus-width = <CAM6_LANES>;
+										remote-endpoint = <&rpi22_tevs_6_out>;
+									};
+								};
+								port@1 {
+									status = "okay";
+									reg = <1>;
+									csi_6_out: endpoint@13 {
+										status = "okay";
+										remote-endpoint = <&vi_in6>;
+									};
+								};
+							};
+						};
+						channel@7 {
+							status = "okay";
+							reg = <7>;
+							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
+								status = "okay";
+								port@0 {
+									status = "okay";
+									reg = <0>;
+									csi_7_in: endpoint@14 {
+										status = "okay";
+										port-index = <CAM7_PORT>;
+										bus-width = <CAM7_LANES>;
+										remote-endpoint = <&rpi22_tevs_7_out>;
+									};
+								};
+								port@1 {
+									status = "okay";
+									reg = <1>;
+									csi_7_out: endpoint@15 {
+										status = "okay";
+										remote-endpoint = <&vi_in7>;
+									};
+								};
+							};
+						};
+					};
+				};
+
+				i2c@810c640000 {
+					tca9548@72 {
+						#address-cells = <1>;
+						#size-cells = <0>;
+						status = "okay";
+						compatible = "nxp,pca9548";
+						reg = <0x72>;
+		                vdd-supply = <&vdd_1v8_cvb>;
+                        i2c-mux-idle-disconnect;
+						cam_i2c_0: i2c@0 {
+							reg = <0>;
+							i2c-mux,deselect-on-exit;
+							#address-cells = <1>;
+							#size-cells = <0>;
+						};
+						cam_i2c_1: i2c@1 {
+							reg = <1>;
+							i2c-mux,deselect-on-exit;
+							#address-cells = <1>;
+							#size-cells = <0>;
+						};
+						cam_i2c_2: i2c@2 {
+							reg = <2>;
+							i2c-mux,deselect-on-exit;
+							#address-cells = <1>;
+							#size-cells = <0>;
+						};
+						cam_i2c_3: i2c@3 {
+							reg = <3>;
+							i2c-mux,deselect-on-exit;
+							#address-cells = <1>;
+							#size-cells = <0>;
+						};
+					};
+				};
+			};
+		};
+	};
+};
+
+&cam_i2c_0 {
+	des_0: gmsl-deserializer@4c {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		compatible = "maxim,max96716a_tn";
+		reg = <0x4c>;
+
+		reset-gpios = <&gpio_main CAM0_PWDN GPIO_ACTIVE_HIGH>;
+
+		//i2c addr alias map "serializer0, serializer1"
+		i2c-addr-alias-map-local = <0x41 0x42>;
+		i2c-addr-alias-map-remote = <0x40 0x40>;
+		i2c-addr-alias-source-id = <0 1>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-ranges = <&des_0 0 0 12>;
+
+		fsync-mode = "internal-output";
+		fsync-freq = <30>;
+
+		i2c-mux {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			des_0_i2c_0: i2c@0 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <0>;
+			};
+
+			des_0_i2c_1: i2c@1 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <1>;
+			};
+		};
+
+		phy@0 {
+			reg = <0>;
+		};
+
+		pipe@0 {
+			reg = <0>;
+
+			maxim,phy-id = <CAM0_DES_PHY_ID>;
+		};
+
+		pipe@1 {
+			reg = <1>;
+
+			maxim,phy-id = <CAM1_DES_PHY_ID>;
+		};
+
+		channel@1 {
+			reg = <1>;
+			label = "des_0_ch_1";
+
+			maxim,phy-id = <CAM1_DES_PHY_ID>;
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+			link-frequencies = /bits/ 64 <DES_LINK_FREQ>;
+		};
+
+		channel@0 {
+			reg = <0>;
+			label = "des_0_ch_0";
+
+			maxim,phy-id = <CAM0_DES_PHY_ID>;
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+			link-frequencies = /bits/ 64 <DES_LINK_FREQ>;
+		};
+	};
+
+	cam_1: rpi22_tevs_b@3e {
+		compatible = "tn,tevs";
+		reg = <0x3e>;
+		status = "okay";
+
+		nvidia,pmc = <&pmc>;
+
+		reset-gpios = <&pca9554_cam_1 4 GPIO_ACTIVE_HIGH>;
+		standby-gpios = <&pca9554_cam_1 2 GPIO_ACTIVE_HIGH>;
+		technexion,gmsl-ser = <&ser_1>;
+		technexion,gmsl-des = <&des_0>;
+		technexion,gmsl-des-channel = <1>;
+		trigger-mode = <2>;
+
+		/* V4L2 device node location */
+		devnode = "video1";
+		/* Physical dimensions of sensor */
+		physical_w = "3.680";
+		physical_h = "2.760";
+		sensor_model = "tevs";
+		use_sensor_mode_id = "false";
+
+		TEVS_MODES(CAM1_LANES_STRING, CAM1_SINTERFACE, CAM1_LANE_POLARITY, CAM1_PIXEL_CLK, CAM1_SERDES_PIXEL_CLK)
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			port@0 {
+				reg = <0>;
+
+				rpi22_tevs_1_out: endpoint {
+					port-index = <CAM1_PORT>;
+					bus-width = <CAM1_LANES>;
+					remote-endpoint = <&csi_1_in>;
+					link-frequencies = /bits/ 64 <TEVS_LINK_FREQ>;
+				};
+			};
+		};
+	};
+
+	cam_0: rpi22_tevs_a@3d {
+		compatible = "tn,tevs";
+		reg = <0x3d>;
+		status = "okay";
+
+		nvidia,pmc = <&pmc>;
+
+		reset-gpios = <&pca9554_cam_0 4 GPIO_ACTIVE_HIGH>;
+		standby-gpios = <&pca9554_cam_0 2 GPIO_ACTIVE_HIGH>;
+		technexion,gmsl-ser = <&ser_0>;
+		technexion,gmsl-des = <&des_0>;
+		technexion,gmsl-des-channel = <0>;
+		trigger-mode = <2>;
+
+		/* V4L2 device node location */
+		devnode = "video0";
+		/* Physical dimensions of sensor */
+		physical_w = "3.680";
+		physical_h = "2.760";
+		sensor_model = "tevs";
+		use_sensor_mode_id = "false";
+
+		TEVS_MODES(CAM0_LANES_STRING, CAM0_SINTERFACE, CAM0_LANE_POLARITY, CAM0_PIXEL_CLK, CAM0_SERDES_PIXEL_CLK)
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			port@0 {
+				reg = <0>;
+
+				rpi22_tevs_0_out: endpoint {
+					port-index = <CAM0_PORT>;
+					bus-width = <CAM0_LANES>;
+					remote-endpoint = <&csi_0_in>;
+					link-frequencies = /bits/ 64 <TEVS_LINK_FREQ>;
+				};
+			};
+		};
+	};
+};
+
+&des_0_i2c_0 {
+	ser_0: gmsl-serializer@41 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		compatible = "maxim,max96717_tn";
+		reg = <0x41>;
+
+		// i2c addr alias map "sensor, gpio expander"
+		i2c-addr-alias-map-local = <0x3d 0x26>;
+		i2c-addr-alias-map-remote = <0x48 0x25>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-ranges = <&ser_0 0 0 11>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&ser_0_pinmux_default>;
+
+		ser_0_pinmux_default: pinmux {
+			mfp0_fsync {
+				pins = "mfp0";
+				function = "gpio";
+				maxim,gmsl-rx = <1>;
+				maxim,gmsl-rx-id = <0>;
+				output-enable;
+				output-low;
+			};
+		};
+
+		i2c-mux {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			ser_0_i2c_0: i2c@0 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <0>;
+			};
+		};
+
+		pipe@0 {
+			reg = <0>;
+
+			maxim,stream-id = <0>;
+		};
+
+		channel@0 {
+			reg = <0>;
+			label = "ser_0_ch_0";
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+		};
+	};
+};
+
+&ser_0_i2c_0 {
+	pca9554_cam_0: pca9554@26 {
+		compatible = "nxp,pca9554";
+		reg = <0x26>;
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-line-names = "EXPOSURE_TRIG_IN",
+						"FLASH_OUT",
+						"INFO_TRIG_IN",
+						"CAMA_SHUTTER",
+						"CSI_P1_nRST",
+						"PWR_TIME0",
+						"PWR_TIME1",
+						"3V3_EN";
+		vcc-supply = <&vdd_1v8_cvb>;
+		vcc_lp = "vcc";
+		status = "okay";
+	};
+};
+
+&des_0_i2c_1 {
+	ser_1: gmsl-serializer@42 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		compatible = "maxim,max96717_tn";
+		reg = <0x42>;
+
+		// i2c addr alias map "sensor, gpio expander"
+		i2c-addr-alias-map-local = <0x3e 0x27>;
+		i2c-addr-alias-map-remote = <0x48 0x25>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-ranges = <&ser_1 0 0 11>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&ser_1_pinmux_default>;
+
+		ser_1_pinmux_default: pinmux {
+			mfp0_fsync {
+				pins = "mfp0";
+				function = "gpio";
+				maxim,gmsl-rx = <1>;
+				maxim,gmsl-rx-id = <0>;
+				output-enable;
+				output-low;
+			};
+		};
+
+		i2c-mux {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			ser_1_i2c_0: i2c@0 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <0>;
+			};
+		};
+
+		pipe@0 {
+			reg = <0>;
+
+			maxim,stream-id = <1>;
+		};
+
+		channel@0 {
+			reg = <0>;
+			label = "ser_1_ch_0";
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+		};
+	};
+};
+
+&ser_1_i2c_0 {
+	pca9554_cam_1: pca9554@27 {
+		compatible = "nxp,pca9554";
+		reg = <0x27>;
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-line-names = "EXPOSURE_TRIG_IN",
+						"FLASH_OUT",
+						"INFO_TRIG_IN",
+						"CAMA_SHUTTER",
+						"CSI_P1_nRST",
+						"PWR_TIME0",
+						"PWR_TIME1",
+						"3V3_EN";
+		vcc-supply = <&vdd_1v8_cvb>;
+		vcc_lp = "vcc";
+		status = "okay";
+	};
+};
+
+&cam_i2c_1 {
+	des_1: gmsl-deserializer@4c {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		compatible = "maxim,max96716a_tn";
+		reg = <0x4c>;
+
+		reset-gpios = <&gpio_main CAM1_PWDN GPIO_ACTIVE_HIGH>;
+
+		//i2c addr alias map "serializer0, serializer1"
+		i2c-addr-alias-map-local = <0x41 0x42>;
+		i2c-addr-alias-map-remote = <0x40 0x40>;
+		i2c-addr-alias-source-id = <0 1>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-ranges = <&des_1 0 0 12>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&des_1_pinmux_default>;
+
+		fsync-mode = "external";
+
+		des_1_pinmux_default: pinmux {
+			mfp0_fsync {
+				pins = "mfp0";
+				function = "gpio";
+				maxim,gmsl-tx-a = <1>;
+				maxim,gmsl-tx-id-a = <0>;
+				maxim,gmsl-tx-b = <1>;
+				maxim,gmsl-tx-id-b = <0>;
+				input-enable;
+			};
+		};
+
+		i2c-mux {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			des_1_i2c_0: i2c@0 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <0>;
+			};
+
+			des_1_i2c_1: i2c@1 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <1>;
+			};
+		};
+
+		phy@0 {
+			reg = <0>;
+		};
+
+		pipe@0 {
+			reg = <0>;
+
+			maxim,phy-id = <CAM2_DES_PHY_ID>;
+		};
+
+		pipe@1 {
+			reg = <1>;
+
+			maxim,phy-id = <CAM3_DES_PHY_ID>;
+		};
+
+		channel@1 {
+			reg = <1>;
+			label = "des_1_ch_1";
+
+			maxim,phy-id = <CAM3_DES_PHY_ID>;
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+			link-frequencies = /bits/ 64 <DES_LINK_FREQ>;
+		};
+
+		channel@0 {
+			reg = <0>;
+			label = "des_1_ch_0";
+
+			maxim,phy-id = <CAM2_DES_PHY_ID>;
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+			link-frequencies = /bits/ 64 <DES_LINK_FREQ>;
+		};
+	};
+
+	cam_3: rpi22_tevs_d@3e {
+		compatible = "tn,tevs";
+		reg = <0x3e>;
+		status = "okay";
+
+		nvidia,pmc = <&pmc>;
+
+		reset-gpios = <&pca9554_cam_3 4 GPIO_ACTIVE_HIGH>;
+		standby-gpios = <&pca9554_cam_3 2 GPIO_ACTIVE_HIGH>;
+		technexion,gmsl-ser = <&ser_3>;
+		technexion,gmsl-des = <&des_1>;
+		technexion,gmsl-des-channel = <1>;
+		trigger-mode = <2>;
+
+		/* V4L2 device node location */
+		devnode = "video3";
+		/* Physical dimensions of sensor */
+		physical_w = "3.680";
+		physical_h = "2.760";
+		sensor_model = "tevs";
+		use_sensor_mode_id = "false";
+
+		TEVS_MODES(CAM3_LANES_STRING, CAM3_SINTERFACE, CAM3_LANE_POLARITY, CAM3_PIXEL_CLK, CAM3_SERDES_PIXEL_CLK)
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			port@0 {
+				reg = <0>;
+
+				rpi22_tevs_3_out: endpoint {
+					port-index = <CAM3_PORT>;
+					bus-width = <CAM3_LANES>;
+					remote-endpoint = <&csi_3_in>;
+					link-frequencies = /bits/ 64 <TEVS_LINK_FREQ>;
+				};
+			};
+		};
+	};
+
+	cam_2: rpi22_tevs_c@3d {
+		compatible = "tn,tevs";
+		reg = <0x3d>;
+		status = "okay";
+
+		nvidia,pmc = <&pmc>;
+
+		reset-gpios = <&pca9554_cam_2 4 GPIO_ACTIVE_HIGH>;
+		standby-gpios = <&pca9554_cam_2 2 GPIO_ACTIVE_HIGH>;
+		technexion,gmsl-ser = <&ser_2>;
+		technexion,gmsl-des = <&des_1>;
+		technexion,gmsl-des-channel = <0>;
+		trigger-mode = <2>;
+
+		/* V4L2 device node location */
+		devnode = "video2";
+		/* Physical dimensions of sensor */
+		physical_w = "3.680";
+		physical_h = "2.760";
+		sensor_model = "tevs";
+		use_sensor_mode_id = "false";
+
+		TEVS_MODES(CAM2_LANES_STRING, CAM2_SINTERFACE, CAM2_LANE_POLARITY, CAM2_PIXEL_CLK, CAM2_SERDES_PIXEL_CLK)
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			port@0 {
+				reg = <0>;
+
+				rpi22_tevs_2_out: endpoint {
+					port-index = <CAM2_PORT>;
+					bus-width = <CAM2_LANES>;
+					remote-endpoint = <&csi_2_in>;
+					link-frequencies = /bits/ 64 <TEVS_LINK_FREQ>;
+				};
+			};
+		};
+	};
+};
+
+&des_1_i2c_0 {
+	ser_2: gmsl-serializer@41 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		compatible = "maxim,max96717_tn";
+		reg = <0x41>;
+
+		// i2c addr alias map "sensor, gpio expander"
+		i2c-addr-alias-map-local = <0x3d 0x26>;
+		i2c-addr-alias-map-remote = <0x48 0x25>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-ranges = <&ser_2 0 0 11>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&ser_2_pinmux_default>;
+
+		ser_2_pinmux_default: pinmux {
+			mfp0_fsync {
+				pins = "mfp0";
+				function = "gpio";
+				maxim,gmsl-rx = <1>;
+				maxim,gmsl-rx-id = <0>;
+				output-enable;
+				output-low;
+			};
+		};
+
+		i2c-mux {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			ser_2_i2c_0: i2c@0 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <0>;
+			};
+		};
+
+		pipe@0 {
+			reg = <0>;
+
+			maxim,stream-id = <0>;
+		};
+
+		channel@0 {
+			reg = <0>;
+			label = "ser_2_ch_0";
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+		};
+	};
+};
+
+&ser_2_i2c_0 {
+	pca9554_cam_2: pca9554@26 {
+		compatible = "nxp,pca9554";
+		reg = <0x26>;
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-line-names = "EXPOSURE_TRIG_IN",
+						"FLASH_OUT",
+						"INFO_TRIG_IN",
+						"CAMA_SHUTTER",
+						"CSI_P1_nRST",
+						"PWR_TIME0",
+						"PWR_TIME1",
+						"3V3_EN";
+		vcc-supply = <&vdd_1v8_cvb>;
+		vcc_lp = "vcc";
+		status = "okay";
+	};
+};
+
+&des_1_i2c_1 {
+	ser_3: gmsl-serializer@42 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		compatible = "maxim,max96717_tn";
+		reg = <0x42>;
+
+		// i2c addr alias map "sensor, gpio expander"
+		i2c-addr-alias-map-local = <0x3e 0x27>;
+		i2c-addr-alias-map-remote = <0x48 0x25>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-ranges = <&ser_3 0 0 11>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&ser_3_pinmux_default>;
+
+		ser_3_pinmux_default: pinmux {
+			mfp0_fsync {
+				pins = "mfp0";
+				function = "gpio";
+				maxim,gmsl-rx = <1>;
+				maxim,gmsl-rx-id = <0>;
+				output-enable;
+				output-low;
+			};
+		};
+
+		i2c-mux {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			ser_3_i2c_0: i2c@0 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <0>;
+			};
+		};
+
+		pipe@0 {
+			reg = <0>;
+
+			maxim,stream-id = <1>;
+		};
+
+		channel@0 {
+			reg = <0>;
+			label = "ser_3_ch_0";
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+		};
+	};
+};
+
+&ser_3_i2c_0 {
+	pca9554_cam_3: pca9554@27 {
+		compatible = "nxp,pca9554";
+		reg = <0x27>;
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-line-names = "EXPOSURE_TRIG_IN",
+						"FLASH_OUT",
+						"INFO_TRIG_IN",
+						"CAMA_SHUTTER",
+						"CSI_P1_nRST",
+						"PWR_TIME0",
+						"PWR_TIME1",
+						"3V3_EN";
+		vcc-supply = <&vdd_1v8_cvb>;
+		vcc_lp = "vcc";
+		status = "okay";
+	};
+};
+
+&cam_i2c_2 {
+	des_2: gmsl-deserializer@4c {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		compatible = "maxim,max96716a_tn";
+		reg = <0x4c>;
+
+		reset-gpios = <&gpio_main CAM0_RST_L GPIO_ACTIVE_HIGH>;
+
+		//i2c addr alias map "serializer0, serializer1"
+		i2c-addr-alias-map-local = <0x41 0x42>;
+		i2c-addr-alias-map-remote = <0x40 0x40>;
+		i2c-addr-alias-source-id = <0 1>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-ranges = <&des_2 0 0 12>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&des_2_pinmux_default>;
+
+		fsync-mode = "external";
+
+		des_2_pinmux_default: pinmux {
+			mfp0_fsync {
+				pins = "mfp0";
+				function = "gpio";
+				maxim,gmsl-tx-a = <1>;
+				maxim,gmsl-tx-id-a = <0>;
+				maxim,gmsl-tx-b = <1>;
+				maxim,gmsl-tx-id-b = <0>;
+				input-enable;
+			};
+		};
+
+		i2c-mux {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			des_2_i2c_0: i2c@0 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <0>;
+			};
+
+			des_2_i2c_1: i2c@1 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <1>;
+			};
+		};
+
+		phy@0 {
+			reg = <0>;
+		};
+
+		pipe@0 {
+			reg = <0>;
+
+			maxim,phy-id = <CAM4_DES_PHY_ID>;
+		};
+
+		pipe@1 {
+			reg = <1>;
+
+			maxim,phy-id = <CAM5_DES_PHY_ID>;
+		};
+
+		channel@1 {
+			reg = <1>;
+			label = "des_2_ch_1";
+
+			maxim,phy-id = <CAM5_DES_PHY_ID>;
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+			link-frequencies = /bits/ 64 <DES_LINK_FREQ>;
+		};
+
+		channel@0 {
+			reg = <0>;
+			label = "des_2_ch_0";
+
+			maxim,phy-id = <CAM4_DES_PHY_ID>;
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+			link-frequencies = /bits/ 64 <DES_LINK_FREQ>;
+		};
+	};
+
+	cam_5: rpi22_tevs_f@3e {
+		compatible = "tn,tevs";
+		reg = <0x3e>;
+		status = "okay";
+
+		nvidia,pmc = <&pmc>;
+
+		reset-gpios = <&pca9554_cam_5 4 GPIO_ACTIVE_HIGH>;
+		standby-gpios = <&pca9554_cam_5 2 GPIO_ACTIVE_HIGH>;
+		technexion,gmsl-ser = <&ser_5>;
+		technexion,gmsl-des = <&des_2>;
+		technexion,gmsl-des-channel = <1>;
+		trigger-mode = <2>;
+
+		/* V4L2 device node location */
+		devnode = "video5";
+		/* Physical dimensions of sensor */
+		physical_w = "3.680";
+		physical_h = "2.760";
+		sensor_model = "tevs";
+		use_sensor_mode_id = "false";
+
+		TEVS_MODES(CAM5_LANES_STRING, CAM5_SINTERFACE, CAM5_LANE_POLARITY, CAM5_PIXEL_CLK, CAM5_SERDES_PIXEL_CLK)
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			port@0 {
+				reg = <0>;
+
+				rpi22_tevs_5_out: endpoint {
+					port-index = <CAM5_PORT>;
+					bus-width = <CAM5_LANES>;
+					remote-endpoint = <&csi_5_in>;
+					link-frequencies = /bits/ 64 <TEVS_LINK_FREQ>;
+				};
+			};
+		};
+	};
+
+	cam_4: rpi22_tevs_e@3d {
+		compatible = "tn,tevs";
+		reg = <0x3d>;
+		status = "okay";
+
+		nvidia,pmc = <&pmc>;
+
+		reset-gpios = <&pca9554_cam_4 4 GPIO_ACTIVE_HIGH>;
+		standby-gpios = <&pca9554_cam_4 2 GPIO_ACTIVE_HIGH>;
+		technexion,gmsl-ser = <&ser_4>;
+		technexion,gmsl-des = <&des_2>;
+		technexion,gmsl-des-channel = <0>;
+		trigger-mode = <2>;
+
+		/* V4L2 device node location */
+		devnode = "video4";
+		/* Physical dimensions of sensor */
+		physical_w = "3.680";
+		physical_h = "2.760";
+		sensor_model = "tevs";
+		use_sensor_mode_id = "false";
+
+		TEVS_MODES(CAM4_LANES_STRING, CAM4_SINTERFACE, CAM4_LANE_POLARITY, CAM4_PIXEL_CLK, CAM4_SERDES_PIXEL_CLK)
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			port@0 {
+				reg = <0>;
+
+				rpi22_tevs_4_out: endpoint {
+					port-index = <CAM4_PORT>;
+					bus-width = <CAM4_LANES>;
+					remote-endpoint = <&csi_4_in>;
+					link-frequencies = /bits/ 64 <TEVS_LINK_FREQ>;
+				};
+			};
+		};
+	};
+};
+
+&des_2_i2c_0 {
+	ser_4: gmsl-serializer@41 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		compatible = "maxim,max96717_tn";
+		reg = <0x41>;
+
+		// i2c addr alias map "sensor, gpio expander"
+		i2c-addr-alias-map-local = <0x3d 0x26>;
+		i2c-addr-alias-map-remote = <0x48 0x25>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-ranges = <&ser_4 0 0 11>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&ser_4_pinmux_default>;
+
+		ser_4_pinmux_default: pinmux {
+			mfp0_fsync {
+				pins = "mfp0";
+				function = "gpio";
+				maxim,gmsl-rx = <1>;
+				maxim,gmsl-rx-id = <0>;
+				output-enable;
+				output-low;
+			};
+		};
+
+		i2c-mux {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			ser_4_i2c_0: i2c@0 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <0>;
+			};
+		};
+
+		pipe@0 {
+			reg = <0>;
+
+			maxim,stream-id = <0>;
+		};
+
+		channel@0 {
+			reg = <0>;
+			label = "ser_4_ch_0";
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+		};
+	};
+};
+
+&ser_4_i2c_0 {
+	pca9554_cam_4: pca9554@26 {
+		compatible = "nxp,pca9554";
+		reg = <0x26>;
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-line-names = "EXPOSURE_TRIG_IN",
+						"FLASH_OUT",
+						"INFO_TRIG_IN",
+						"CAMA_SHUTTER",
+						"CSI_P1_nRST",
+						"PWR_TIME0",
+						"PWR_TIME1",
+						"3V3_EN";
+		vcc-supply = <&vdd_1v8_cvb>;
+		vcc_lp = "vcc";
+		status = "okay";
+	};
+};
+
+&des_2_i2c_1 {
+	ser_5: gmsl-serializer@42 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		compatible = "maxim,max96717_tn";
+		reg = <0x42>;
+
+		// i2c addr alias map "sensor, gpio expander"
+		i2c-addr-alias-map-local = <0x3e 0x27>;
+		i2c-addr-alias-map-remote = <0x48 0x25>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-ranges = <&ser_5 0 0 11>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&ser_5_pinmux_default>;
+
+		ser_5_pinmux_default: pinmux {
+			mfp0_fsync {
+				pins = "mfp0";
+				function = "gpio";
+				maxim,gmsl-rx = <1>;
+				maxim,gmsl-rx-id = <0>;
+				output-enable;
+				output-low;
+			};
+		};
+
+		i2c-mux {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			ser_5_i2c_0: i2c@0 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <0>;
+			};
+		};
+
+		pipe@0 {
+			reg = <0>;
+
+			maxim,stream-id = <1>;
+		};
+
+		channel@0 {
+			reg = <0>;
+			label = "ser_5_ch_0";
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+		};
+	};
+};
+
+&ser_5_i2c_0 {
+	pca9554_cam_5: pca9554@27 {
+		compatible = "nxp,pca9554";
+		reg = <0x27>;
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-line-names = "EXPOSURE_TRIG_IN",
+						"FLASH_OUT",
+						"INFO_TRIG_IN",
+						"CAMA_SHUTTER",
+						"CSI_P1_nRST",
+						"PWR_TIME0",
+						"PWR_TIME1",
+						"3V3_EN";
+		vcc-supply = <&vdd_1v8_cvb>;
+		vcc_lp = "vcc";
+		status = "okay";
+	};
+};
+
+&cam_i2c_3 {
+	des_3: gmsl-deserializer@4c {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		compatible = "maxim,max96716a_tn";
+		reg = <0x4c>;
+
+		reset-gpios = <&gpio_main CAM1_RST_L GPIO_ACTIVE_HIGH>;
+
+		//i2c addr alias map "serializer0, serializer1"
+		i2c-addr-alias-map-local = <0x41 0x42>;
+		i2c-addr-alias-map-remote = <0x40 0x40>;
+		i2c-addr-alias-source-id = <0 1>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-ranges = <&des_3 0 0 12>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&des_3_pinmux_default>;
+
+		fsync-mode = "external";
+
+		des_3_pinmux_default: pinmux {
+			mfp0_fsync {
+				pins = "mfp0";
+				function = "gpio";
+				maxim,gmsl-tx-a = <1>;
+				maxim,gmsl-tx-id-a = <0>;
+				maxim,gmsl-tx-b = <1>;
+				maxim,gmsl-tx-id-b = <0>;
+				input-enable;
+			};
+		};
+
+		i2c-mux {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			des_3_i2c_0: i2c@0 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <0>;
+			};
+
+			des_3_i2c_1: i2c@1 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <1>;
+			};
+		};
+
+		phy@0 {
+			reg = <0>;
+		};
+
+		pipe@0 {
+			reg = <0>;
+
+			maxim,phy-id = <CAM6_DES_PHY_ID>;
+		};
+
+		pipe@1 {
+			reg = <1>;
+
+			maxim,phy-id = <CAM7_DES_PHY_ID>;
+		};
+
+		channel@1 {
+			reg = <1>;
+			label = "des_3_ch_1";
+
+			maxim,phy-id = <CAM7_DES_PHY_ID>;
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+			link-frequencies = /bits/ 64 <DES_LINK_FREQ>;
+		};
+
+		channel@0 {
+			reg = <0>;
+			label = "des_3_ch_0";
+
+			maxim,phy-id = <CAM6_DES_PHY_ID>;
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+			link-frequencies = /bits/ 64 <DES_LINK_FREQ>;
+		};
+	};
+
+	cam_7: rpi22_tevs_h@3e {
+		compatible = "tn,tevs";
+		reg = <0x3e>;
+		status = "okay";
+
+		nvidia,pmc = <&pmc>;
+
+		reset-gpios = <&pca9554_cam_7 4 GPIO_ACTIVE_HIGH>;
+		standby-gpios = <&pca9554_cam_7 2 GPIO_ACTIVE_HIGH>;
+		technexion,gmsl-ser = <&ser_7>;
+		technexion,gmsl-des = <&des_3>;
+		technexion,gmsl-des-channel = <1>;
+		trigger-mode = <2>;
+
+		/* V4L2 device node location */
+		devnode = "video7";
+		/* Physical dimensions of sensor */
+		physical_w = "3.680";
+		physical_h = "2.760";
+		sensor_model = "tevs";
+		use_sensor_mode_id = "false";
+
+		TEVS_MODES(CAM7_LANES_STRING, CAM7_SINTERFACE, CAM7_LANE_POLARITY, CAM7_PIXEL_CLK, CAM7_SERDES_PIXEL_CLK)
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			port@0 {
+				reg = <0>;
+
+				rpi22_tevs_7_out: endpoint {
+					port-index = <CAM7_PORT>;
+					bus-width = <CAM7_LANES>;
+					remote-endpoint = <&csi_7_in>;
+					link-frequencies = /bits/ 64 <TEVS_LINK_FREQ>;
+				};
+			};
+		};
+	};
+
+	cam_6: rpi22_tevs_g@3d {
+		compatible = "tn,tevs";
+		reg = <0x3d>;
+		status = "okay";
+
+		nvidia,pmc = <&pmc>;
+
+		reset-gpios = <&pca9554_cam_6 4 GPIO_ACTIVE_HIGH>;
+		standby-gpios = <&pca9554_cam_6 2 GPIO_ACTIVE_HIGH>;
+		technexion,gmsl-ser = <&ser_6>;
+		technexion,gmsl-des = <&des_3>;
+		technexion,gmsl-des-channel = <0>;
+		trigger-mode = <2>;
+
+		/* V4L2 device node location */
+		devnode = "video6";
+		/* Physical dimensions of sensor */
+		physical_w = "3.680";
+		physical_h = "2.760";
+		sensor_model = "tevs";
+		use_sensor_mode_id = "false";
+
+		TEVS_MODES(CAM6_LANES_STRING, CAM6_SINTERFACE, CAM6_LANE_POLARITY, CAM6_PIXEL_CLK, CAM6_SERDES_PIXEL_CLK)
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			port@0 {
+				reg = <0>;
+
+				rpi22_tevs_6_out: endpoint {
+					port-index = <CAM6_PORT>;
+					bus-width = <CAM6_LANES>;
+					remote-endpoint = <&csi_6_in>;
+					link-frequencies = /bits/ 64 <TEVS_LINK_FREQ>;
+				};
+			};
+		};
+	};
+};
+
+&des_3_i2c_0 {
+	ser_6: gmsl-serializer@41 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		compatible = "maxim,max96717_tn";
+		reg = <0x41>;
+
+		// i2c addr alias map "sensor, gpio expander"
+		i2c-addr-alias-map-local = <0x3d 0x26>;
+		i2c-addr-alias-map-remote = <0x48 0x25>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-ranges = <&ser_6 0 0 11>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&ser_6_pinmux_default>;
+
+		ser_6_pinmux_default: pinmux {
+			mfp0_fsync {
+				pins = "mfp0";
+				function = "gpio";
+				maxim,gmsl-rx = <1>;
+				maxim,gmsl-rx-id = <0>;
+				output-enable;
+				output-low;
+			};
+		};
+
+		i2c-mux {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			ser_6_i2c_0: i2c@0 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <0>;
+			};
+		};
+
+		pipe@0 {
+			reg = <0>;
+
+			maxim,stream-id = <0>;
+		};
+
+		channel@0 {
+			reg = <0>;
+			label = "ser_6_ch_0";
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+		};
+	};
+};
+
+&ser_6_i2c_0 {
+	pca9554_cam_6: pca9554@26 {
+		compatible = "nxp,pca9554";
+		reg = <0x26>;
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-line-names = "EXPOSURE_TRIG_IN",
+						"FLASH_OUT",
+						"INFO_TRIG_IN",
+						"CAMA_SHUTTER",
+						"CSI_P1_nRST",
+						"PWR_TIME0",
+						"PWR_TIME1",
+						"3V3_EN";
+		vcc-supply = <&vdd_1v8_cvb>;
+		vcc_lp = "vcc";
+		status = "okay";
+	};
+};
+
+&des_3_i2c_1 {
+	ser_7: gmsl-serializer@42 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		compatible = "maxim,max96717_tn";
+		reg = <0x42>;
+
+		// i2c addr alias map "sensor, gpio expander"
+		i2c-addr-alias-map-local = <0x3e 0x27>;
+		i2c-addr-alias-map-remote = <0x48 0x25>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-ranges = <&ser_7 0 0 11>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&ser_7_pinmux_default>;
+
+		ser_7_pinmux_default: pinmux {
+			mfp0_fsync {
+				pins = "mfp0";
+				function = "gpio";
+				maxim,gmsl-rx = <1>;
+				maxim,gmsl-rx-id = <0>;
+				output-enable;
+				output-low;
+			};
+		};
+
+		i2c-mux {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			ser_7_i2c_0: i2c@0 {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				reg = <0>;
+			};
+		};
+
+		pipe@0 {
+			reg = <0>;
+
+			maxim,stream-id = <1>;
+		};
+
+		channel@0 {
+			reg = <0>;
+			label = "ser_7_ch_0";
+
+			clock-lanes = <0>;
+			data-lanes = <1 2 3 4>;
+		};
+	};
+};
+
+&ser_7_i2c_0 {
+	pca9554_cam_7: pca9554@27 {
+		compatible = "nxp,pca9554";
+		reg = <0x27>;
+		gpio-controller;
+		#gpio-cells = <2>;
+		gpio-line-names = "EXPOSURE_TRIG_IN",
+						"FLASH_OUT",
+						"INFO_TRIG_IN",
+						"CAMA_SHUTTER",
+						"CSI_P1_nRST",
+						"PWR_TIME0",
+						"PWR_TIME1",
+						"3V3_EN";
+		vcc-supply = <&vdd_1v8_cvb>;
+		vcc_lp = "vcc";
+		status = "okay";
+	};
+};
