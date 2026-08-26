@@ -1337,7 +1337,7 @@
 		compatible = "maxim,max96717_tn";
 		reg = <0x31>;
 
-		// i2c addr alias map "sensor, gpio expander"
+		// i2c addr alias map "sensor, IMU"
 		i2c-addr-alias-map-local = <0x39 0x5b>;
 		i2c-addr-alias-map-remote = <0x48 0x6a>;
 
@@ -1420,7 +1420,7 @@
 		compatible = "maxim,max96717_tn";
 		reg = <0x32>;
 
-		// i2c addr alias map "sensor, gpio expander"
+		// i2c addr alias map "sensor, IMU"
 		i2c-addr-alias-map-local = <0x3a 0x5c>;
 		i2c-addr-alias-map-remote = <0x48 0x6a>;
 
@@ -1503,7 +1503,7 @@
 		compatible = "maxim,max96717_tn";
 		reg = <0x33>;
 
-		// i2c addr alias map "sensor, gpio expander"
+		// i2c addr alias map "sensor, IMU"
 		i2c-addr-alias-map-local = <0x3b 0x5d>;
 		i2c-addr-alias-map-remote = <0x48 0x6a>;
 
@@ -1586,7 +1586,7 @@
 		compatible = "maxim,max96717_tn";
 		reg = <0x34>;
 
-		// i2c addr alias map "sensor, gpio expander"
+		// i2c addr alias map "sensor, IMU"
 		i2c-addr-alias-map-local = <0x3c 0x5e>;
 		i2c-addr-alias-map-remote = <0x48 0x6a>;
 
@@ -1669,7 +1669,7 @@
 		compatible = "maxim,max96717_tn";
 		reg = <0x41>;
 
-		// i2c addr alias map "sensor, gpio expander"
+		// i2c addr alias map "sensor, IMU"
 		i2c-addr-alias-map-local = <0x49 0x6b>;
 		i2c-addr-alias-map-remote = <0x48 0x6a>;
 
@@ -1752,7 +1752,7 @@
 		compatible = "maxim,max96717_tn";
 		reg = <0x42>;
 
-		// i2c addr alias map "sensor, gpio expander"
+		// i2c addr alias map "sensor, IMU"
 		i2c-addr-alias-map-local = <0x4a 0x6c>;
 		i2c-addr-alias-map-remote = <0x48 0x6a>;
 
@@ -1835,7 +1835,7 @@
 		compatible = "maxim,max96717_tn";
 		reg = <0x43>;
 
-		// i2c addr alias map "sensor, gpio expander"
+		// i2c addr alias map "sensor, IMU"
 		i2c-addr-alias-map-local = <0x4b 0x6d>;
 		i2c-addr-alias-map-remote = <0x48 0x6a>;
 
@@ -1918,7 +1918,7 @@
 		compatible = "maxim,max96717_tn";
 		reg = <0x44>;
 
-		// i2c addr alias map "sensor, gpio expander"
+		// i2c addr alias map "sensor, IMU"
 		i2c-addr-alias-map-local = <0x4c 0x6e>;
 		i2c-addr-alias-map-remote = <0x48 0x6a>;
 
