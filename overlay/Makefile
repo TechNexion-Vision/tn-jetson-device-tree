@@ -72,6 +72,12 @@ dtbo-y += tegra234-p3767-camera-p3768-vls-gm2-fsync.dtbo
 dtbo-y += tegra234-p3767-camera-p3768-vls-gm2-fsync-external.dtbo
 dtbo-y += tegra234-p3767-camera-p3768-vls-gm2-tunnel.dtbo
 dtbo-y += tegra234-p3767-camera-p3768-vls-gm2-tunnel-fsync.dtbo
+dtbo-y += tegra234-p3767-camera-p3768-vlm-gm2.dtbo
+dtbo-y += tegra234-p3767-camera-p3768-vlm-gm2-fsync.dtbo
+dtbo-y += tegra234-p3767-camera-p3768-vlm-gm2-fsync-external.dtbo
+dtbo-y += tegra234-p3767-camera-p3768-vlm-gm2-tunnel.dtbo
+dtbo-y += tegra234-p3767-camera-p3768-vlm-gm2-tunnel-fsync.dtbo
+dtbo-y += tegra234-p3767-camera-p3768-vlm-gm2-ext-io.dtbo
 dtbo-y += tegra234-p3767-camera-2nor0x-tevs-dual-overlay.dtbo
 dtbo-y += tegra234-p3767-camera-2nor0x-vls-gm2-overlay.dtbo
 dtbo-y += tegra234-p3767-camera-2nor0x-vls-gm2-fsync-overlay.dtbo
@@ -96,6 +102,11 @@ dtbo-y += tegra234-p3737-camera-vls-gm2-fsync-overlay.dtbo
 dtbo-y += tegra234-p3737-camera-vls-gm2-fsync-external-overlay.dtbo
 dtbo-y += tegra234-p3737-camera-vls-gm2-tunnel-overlay.dtbo
 dtbo-y += tegra234-p3737-camera-vls-gm2-tunnel-fsync-overlay.dtbo
+dtbo-y += tegra234-p3737-camera-vlm-gm2-overlay.dtbo
+dtbo-y += tegra234-p3737-camera-vlm-gm2-fsync-overlay.dtbo
+dtbo-y += tegra234-p3737-camera-vlm-gm2-fsync-external-overlay.dtbo
+dtbo-y += tegra234-p3737-camera-vlm-gm2-tunnel-overlay.dtbo
+dtbo-y += tegra234-p3737-camera-vlm-gm2-tunnel-fsync-overlay.dtbo
 
 ifneq ($(dtb-y),)
 dtb-y := $(addprefix $(makefile-path)/,$(dtb-y))

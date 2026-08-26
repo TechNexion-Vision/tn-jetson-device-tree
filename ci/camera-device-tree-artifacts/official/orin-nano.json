@@ -18,6 +18,90 @@
       "lifecycle": "supported"
     },
     {
+      "id": "orin-nano.vlm-gm2.default",
+      "type": "camera-overlay",
+      "output": "tegra234-p3767-camera-p3768-vlm-gm2.dtbo",
+      "source": "overlay/tegra234-p3767-camera-p3768-vlm-gm2.dts",
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
+      "platforms": [
+        "orin-nano"
+      ],
+      "camera": "vlm-gm2",
+      "variant": "default",
+      "lifecycle": "supported"
+    },
+    {
+      "id": "orin-nano.vlm-gm2.ext-io",
+      "type": "camera-overlay",
+      "output": "tegra234-p3767-camera-p3768-vlm-gm2-ext-io.dtbo",
+      "source": "overlay/tegra234-p3767-camera-p3768-vlm-gm2-ext-io.dts",
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
+      "platforms": [
+        "orin-nano"
+      ],
+      "camera": "vlm-gm2",
+      "variant": "ext-io",
+      "lifecycle": "supported"
+    },
+    {
+      "id": "orin-nano.vlm-gm2.fsync",
+      "type": "camera-overlay",
+      "output": "tegra234-p3767-camera-p3768-vlm-gm2-fsync.dtbo",
+      "source": "overlay/tegra234-p3767-camera-p3768-vlm-gm2-fsync.dts",
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
+      "platforms": [
+        "orin-nano"
+      ],
+      "camera": "vlm-gm2",
+      "variant": "fsync",
+      "lifecycle": "supported"
+    },
+    {
+      "id": "orin-nano.vlm-gm2.fsync-external",
+      "type": "camera-overlay",
+      "output": "tegra234-p3767-camera-p3768-vlm-gm2-fsync-external.dtbo",
+      "source": "overlay/tegra234-p3767-camera-p3768-vlm-gm2-fsync-external.dts",
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
+      "platforms": [
+        "orin-nano"
+      ],
+      "camera": "vlm-gm2",
+      "variant": "fsync-external",
+      "lifecycle": "supported"
+    },
+    {
+      "id": "orin-nano.vlm-gm2.tunnel",
+      "type": "camera-overlay",
+      "output": "tegra234-p3767-camera-p3768-vlm-gm2-tunnel.dtbo",
+      "source": "overlay/tegra234-p3767-camera-p3768-vlm-gm2-tunnel.dts",
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
+      "platforms": [
+        "orin-nano"
+      ],
+      "camera": "vlm-gm2",
+      "variant": "tunnel",
+      "lifecycle": "supported"
+    },
+    {
+      "id": "orin-nano.vlm-gm2.tunnel-fsync",
+      "type": "camera-overlay",
+      "output": "tegra234-p3767-camera-p3768-vlm-gm2-tunnel-fsync.dtbo",
+      "source": "overlay/tegra234-p3767-camera-p3768-vlm-gm2-tunnel-fsync.dts",
+      "makefile": "overlay/Makefile",
+      "makeVariable": "dtbo-y",
+      "platforms": [
+        "orin-nano"
+      ],
+      "camera": "vlm-gm2",
+      "variant": "tunnel-fsync",
+      "lifecycle": "supported"
+    },
+    {
       "id": "orin-nano.vls-gm2.default",
       "type": "camera-overlay",
       "output": "tegra234-p3767-camera-p3768-vls-gm2.dtbo",
