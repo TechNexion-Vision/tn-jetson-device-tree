@@ -65,6 +65,8 @@ dtbo-y += tegra234-p3767-camera-p3768-imx219-A.dtbo
 dtbo-y += tegra234-p3767-camera-p3768-imx219-imx477.dtbo
 dtbo-y += tegra234-p3767-camera-p3768-imx477-C.dtbo
 dtbo-y += tegra234-p3767-camera-p3768-imx477-A.dtbo
+
+# technexion camera overlay dtbos
 dtbo-y += tegra234-p3767-camera-p3768-tevs-dual.dtbo
 dtbo-y += tegra234-p3767-camera-p3768-vls3.dtbo
 dtbo-y += tegra234-p3767-camera-p3768-vls-gm2.dtbo
@@ -97,6 +99,10 @@ dtbo-y += tegra234-p3768-camera-d133oxb-vls-gm2-overlay.dtbo
 dtbo-y += tegra234-p3768-camera-d133oxb-vls-gm2-fsync-overlay.dtbo
 dtbo-y += tegra234-p3768-camera-d133oxb-vls-gm2-tunnel-overlay.dtbo
 dtbo-y += tegra234-p3768-camera-d133oxb-vls-gm2-tunnel-fsync-overlay.dtbo
+dtbo-y += tegra234-p3768-camera-ibox-601-g2-vls-gm2-overlay.dtbo
+dtbo-y += tegra234-p3768-camera-ibox-601-g2-vls-gm2-fsync-overlay.dtbo
+dtbo-y += tegra234-p3768-camera-ibox-601-g2-vls-gm2-tunnel-overlay.dtbo
+dtbo-y += tegra234-p3768-camera-ibox-601-g2-vls-gm2-tunnel-fsync-overlay.dtbo
 dtbo-y += tegra234-p3737-camera-aie900a-vls-gm2-overlay.dtbo
 dtbo-y += tegra234-p3737-camera-aie900a-vls-gm2-fsync-overlay.dtbo
 dtbo-y += tegra234-p3737-camera-eac5000-vls-gm2-overlay.dtbo
